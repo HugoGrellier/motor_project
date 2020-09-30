@@ -106,9 +106,9 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-	  //sprintf(MSG,"cc: %ld\n\r",TIM2->CNT);
-	  sprintf(MSG,"cc: %ld\n\r",__HAL_TIM_GET_COUNTER(&htim2));
-	  printf(MSG);
+
+	  Encoder_Read();
+
     /* USER CODE BEGIN 3 */
 
   }
