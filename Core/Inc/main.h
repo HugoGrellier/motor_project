@@ -33,12 +33,18 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <stdio.h>
+#include "motor.h"
+#include "encoder.h"
+#include "pid.h"
+#include "driveSyst.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
-
+extern PID_t pidHandleSpeed;
+extern PID_t pidHandlePosition;
+extern PID_t pidHandleTorque;
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/
@@ -59,6 +65,8 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define B1_Pin GPIO_PIN_13
+#define B1_GPIO_Port GPIOC
 #define LD2_Pin GPIO_PIN_5
 #define LD2_GPIO_Port GPIOA
 /* USER CODE BEGIN Private defines */

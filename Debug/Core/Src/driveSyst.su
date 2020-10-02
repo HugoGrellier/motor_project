@@ -1,0 +1,2 @@
+driveSyst.c:12:6:DriveSyst_Init	16	static
+driveSyst.c:18:6:DriveSyst_Loop	64	static

@@ -27,9 +27,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include <stdio.h>
-#include "motor.h"
-#include "encoder.h"
+
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -49,7 +48,10 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+	PID_t pidHandleSpeed;
+	PID_t pidHandlePosition;
+	PID_t pidHandleTorque;
+	driveSyst_t dsHandle;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -79,8 +81,27 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
+  float Kp_speed = 0.02;
+  float Ki_speed = 0.09;
+  float Kd_speed = 0.04;
+  float error_stop_speed = 0.01;
+  float integ_sat_speed = 6;
+
+  float Kp_position = 0.02;
+  float Ki_position = 0.035;
+  float Kd_position = 0.05;
+  float error_stop_position = 0.01;
+  float integ_sat_position = 6;
   Motor_Init();
   Encoder_Init();
+
+  PID_Init(&pidHandleSpeed, Kp_speed, Ki_speed, Kd_speed, error_stop_speed, integ_sat_speed);
+  PID_Init(&pidHandlePosition, Kp_position, Ki_position, Kd_position, error_stop_position, integ_sat_position);
+
+  DriveSyst_Init (&dsHandle);
+
+
+
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -93,11 +114,14 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_USART2_UART_Init();
+
   MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
 
-  uint8_t MSG[50]={'\0'};
-  Motor_Pwm_Update(0.5);
+
+
+
+  //Motor_Pwm_Update(0.50);
 
   /* USER CODE END 2 */
 
@@ -107,9 +131,11 @@ int main(void)
   {
     /* USER CODE END WHILE */
 
-	  Encoder_Read();
-
     /* USER CODE BEGIN 3 */
+	  //printf("velocity: %f\n\r output: %f\n\r error: %f\n\r somme error: %f\n\r\n\r",pidHandleSpeed.input.feedback,pidHandleSpeed.process.output,pidHandleSpeed.process.error,pidHandleSpeed.process.integ);
+	  printf("position: %f\n\r output: %f\n\r error: %f\n\r somme error: %f\n\r\n\r",pidHandlePosition.input.feedback,pidHandlePosition.process.output,pidHandlePosition.process.error,pidHandlePosition.process.integ);
+
+
 
   }
   /* USER CODE END 3 */
@@ -161,13 +187,23 @@ void SystemClock_Config(void)
 /* USER CODE BEGIN 4 */
 void HAL_SYSTICK_Callback(void){
 	static uint16_t tempoNms = 500;
+	static uint16_t tempoNmsEnc = 40;
 	if(tempoNms > 0 ) tempoNms--;
 	else    {
 		tempoNms = 500;
 		HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
 
-
 	}
+	if(tempoNmsEnc > 0 ) tempoNmsEnc--;
+		else    {
+			tempoNmsEnc = 40;
+			DriveSyst_Loop(&dsHandle);
+			/*pidHandleSpeed.input.order = 6;
+			pidHandleSpeed.input.feedback = Encoder_Read().d_angle;
+			PID_Execute(&pidHandleSpeed);
+			Motor_Pwm_Update(pidHandleSpeed.process.output);*/
+		}
+
 }
 
 int __io_putchar(int ch){

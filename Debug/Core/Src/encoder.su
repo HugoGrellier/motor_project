@@ -1,2 +1,2 @@
-encoder.c:5:6:Encoder_Init	8	static
-encoder.c:14:20:Encoder_Read	120	static
+encoder.c:6:6:Encoder_Init	8	static
+encoder.c:15:20:Encoder_Read	56	static

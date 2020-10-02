@@ -1,4 +1,5 @@
-Core/Src/tim.o: ../Core/Src/tim.c ../Core/Inc/tim.h ../Core/Inc/main.h \
+Core/Src/driveSyst.o: ../Core/Src/driveSyst.c ../Core/Inc/driveSyst.h \
+ ../Core/Inc/encoder.h ../Core/Inc/tim.h ../Core/Inc/main.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
@@ -30,7 +31,12 @@ Core/Src/tim.o: ../Core/Src/tim.c ../Core/Inc/tim.h ../Core/Inc/main.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
  ../Core/Inc/motor.h ../Core/Inc/encoder.h ../Core/Inc/pid.h \
- ../Core/Inc/driveSyst.h
+ ../Core/Inc/driveSyst.h ../Core/Inc/main.h ../Core/Inc/pid.h \
+ ../Core/Inc/gpio.h
+
+../Core/Inc/driveSyst.h:
+
+../Core/Inc/encoder.h:
 
 ../Core/Inc/tim.h:
 
@@ -103,3 +109,9 @@ Core/Src/tim.o: ../Core/Src/tim.c ../Core/Inc/tim.h ../Core/Inc/main.h \
 ../Core/Inc/pid.h:
 
 ../Core/Inc/driveSyst.h:
+
+../Core/Inc/main.h:
+
+../Core/Inc/pid.h:
+
+../Core/Inc/gpio.h:

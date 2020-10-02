@@ -31,19 +31,21 @@ void Motor_Pwm_Update(float in){
 	if(in>1.0){
 			in=1.0;
 		}
-
+	if(in==0.0){
+				sConfigOC1.Pulse = htim3.Init.Period;
+				sConfigOC2.Pulse = htim3.Init.Period;
+				}
 	if(in<0.0){
+		in=-1-in;
 		sConfigOC1.Pulse = htim3.Init.Period*-in;
 		sConfigOC2.Pulse = htim3.Init.Period;
 	}
 	if(in>0.0){
+		in=1-in;
 			sConfigOC1.Pulse = htim3.Init.Period;
 			sConfigOC2.Pulse = htim3.Init.Period*in;
 		}
-	if(in==0.0){
-			sConfigOC1.Pulse = htim3.Init.Period;
-			sConfigOC2.Pulse = htim3.Init.Period;
-			}
+
 
 	if (HAL_TIM_PWM_ConfigChannel(&htim3, &sConfigOC1, TIM_CHANNEL_1) != HAL_OK)
 	  {
