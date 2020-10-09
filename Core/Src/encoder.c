@@ -29,7 +29,7 @@ Encoder_Feedback_t Encoder_Read(void){
 		Encoder.angle_rel = Encoder.angle_rel+2*M_PI; // changement de signe pour avoir un angle relatif entre 0 et 2*pi
 	}
 
-	Encoder.d_angle=delta/deltaT;// calcul vitesse angulaire
+	Encoder.d_angle=delta/deltaT;// calcul vitesse angulaire (angle/temps)
 
 	return Encoder;
 
