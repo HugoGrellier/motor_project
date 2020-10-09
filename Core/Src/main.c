@@ -101,8 +101,6 @@ int main(void)
   PID_Init(&pidHandlePosition, Kp_position, Ki_position, Kd_position, error_stop_position, integ_sat_position);
   DriveSyst_Init (&dsHandle);
 
-
-
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -192,22 +190,21 @@ void HAL_SYSTICK_Callback(void){
 	if(tempoNms > 0 ) tempoNms--;
 	else    {
 		tempoNms = 500;
+    //led2 change state every 500ms
 		HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
 
 	}
 	if(tempoNmsEnc > 0 ) tempoNmsEnc--;
 		else    {
 			tempoNmsEnc = 40;
+      //call DriveSys_loop every 40ms
 			DriveSyst_Loop(&dsHandle);
-			/*pidHandleSpeed.input.order = 6;
-			pidHandleSpeed.input.feedback = Encoder_Read().d_angle;
-			PID_Execute(&pidHandleSpeed);
-			Motor_Pwm_Update(pidHandleSpeed.process.output);*/
 		}
 
 }
 
 int __io_putchar(int ch){
+  //transmit "printf" on the uart2 
 	HAL_UART_Transmit(&huart2, (uint8_t *)&ch, 1, 0xFFFF);
 	return ch;
 }
