@@ -3,6 +3,7 @@
 #include <math.h>
 Encoder_Feedback_t Encoder;
 
+//Fonction d initialisation du timer 2 (configuration) utilise pour l encoder
 void Encoder_Init(void){
 	MX_TIM2_Init();//initialisation du timer 2 (utile pour l encoder)
 
@@ -12,6 +13,7 @@ void Encoder_Init(void){
 
 }
 
+//fonction de calculs des angles absolus, relatifs et vitesse angulaire´du moteur
 Encoder_Feedback_t Encoder_Read(void){
 
 	float deltaT = 0.040; //delta temps necessaire pour l obtention de la vitesse angulaire 
