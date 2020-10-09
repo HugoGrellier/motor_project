@@ -19,7 +19,7 @@ Encoder_Feedback_t Encoder_Read(void){
 	float counter=__HAL_TIM_GET_COUNTER(&htim2);
 	__HAL_TIM_SET_COUNTER(&htim2,32768);
 
-	float delta = ((counter-32768.0F)*2.0F*M_PI)/(75.0F*8.0F);
+	float delta = ((counter-32768.0F)*2.0F*M_PI)/(74.8F*8.0F);
 	Encoder.angle_abs += delta;
 	Encoder.angle_rel = fmod(Encoder.angle_abs,2*M_PI);
 	if (Encoder.angle_rel<0){

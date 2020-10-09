@@ -24,7 +24,7 @@
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
-
+#include "mpu6050.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -87,17 +87,18 @@ int main(void)
   float error_stop_speed = 0.01;
   float integ_sat_speed = 6;
 
-  float Kp_position = 0.02;
-  float Ki_position = 0.035;
-  float Kd_position = 0.05;
+  float Kp_position = 0.8;
+  float Ki_position = 0.0005;
+  float Kd_position = 0.02;
   float error_stop_position = 0.01;
   float integ_sat_position = 6;
+
   Motor_Init();
   Encoder_Init();
-
+  MX_I2C1_Init();
+  MPU6050_Init();
   PID_Init(&pidHandleSpeed, Kp_speed, Ki_speed, Kd_speed, error_stop_speed, integ_sat_speed);
   PID_Init(&pidHandlePosition, Kp_position, Ki_position, Kd_position, error_stop_position, integ_sat_position);
-
   DriveSyst_Init (&dsHandle);
 
 
@@ -115,7 +116,7 @@ int main(void)
   MX_GPIO_Init();
   MX_USART2_UART_Init();
 
-  MX_I2C1_Init();
+
   /* USER CODE BEGIN 2 */
 
 
@@ -133,7 +134,7 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 	  //printf("velocity: %f\n\r output: %f\n\r error: %f\n\r somme error: %f\n\r\n\r",pidHandleSpeed.input.feedback,pidHandleSpeed.process.output,pidHandleSpeed.process.error,pidHandleSpeed.process.integ);
-	  printf("position: %f\n\r output: %f\n\r error: %f\n\r somme error: %f\n\r\n\r",pidHandlePosition.input.feedback,pidHandlePosition.process.output,pidHandlePosition.process.error,pidHandlePosition.process.integ);
+	  //printf("position: %f\n\r output: %f\n\r error: %f\n\r somme error: %f\n\r\n\r",pidHandlePosition.input.feedback,pidHandlePosition.process.output,pidHandlePosition.process.error,pidHandlePosition.process.integ);
 
 
 

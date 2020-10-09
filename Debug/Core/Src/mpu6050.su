@@ -1,0 +1,2 @@
+mpu6050.c:20:6:MPU6050_Init	40	static
+mpu6050.c:53:5:MPU6050_Read_Accel	80	static
