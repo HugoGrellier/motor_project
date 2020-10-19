@@ -24,7 +24,7 @@ Configuration des PWNs :
 Nous avons utilsé le timer 3 pour la generation des PWNs .
 Voici la fonction d'initialisation du timer 3 permettant de réaliser la PWN désirée (nous mettrons en évidence seulement les parties modifiées et intéressantes du code)
 Pour plus de details : voire les codes commentés
-
+'
 /* TIM3 init function */
 void MX_TIM3_Init(void)
 {
@@ -56,7 +56,7 @@ void MX_TIM3_Init(void)
   }
   HAL_TIM_MspPostInit(&htim3);
 }
-
+'
 La valeure de reload a été fixee a 4000 a cause d'une contrainte imposee. 
 En effet nous ne pouvions pas deppasser les 25kHz pour le pont de puissance.
 Ayant la formule suivante : T(timer)=T(clock)(Prescalaire + 1)(reLoad+1)
@@ -69,7 +69,7 @@ Lecture du codeur
 Nous avons utilsé le timer 2 pour le codeur.
 Voici la fonction d'initialisation du timer 2 permettant de mettre le timer en mode "encoder"
 Pour plus de details : voire les codes commentés
-/* TIM2 init function */
+'/* TIM2 init function */
 void MX_TIM2_Init(void)
 {
   ...
@@ -94,4 +94,4 @@ void MX_TIM2_Init(void)
     Error_Handler();
   }
 
-}
+}'
