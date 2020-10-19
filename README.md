@@ -29,7 +29,7 @@ Pour plus de details : voire les codes commentés
 void MX_TIM3_Init(void)
 {
   ...
-
+'
   htim3.Instance = TIM3;
   htim3.Init.Prescaler = 0; // mise a zéro du prescalaire du timer (Calcul explique ci-apres)
   htim3.Init.CounterMode = TIM_COUNTERMODE_UP; //comptage au front montant du compteur
