@@ -54,34 +54,7 @@ void MX_TIM3_Init(void)
 }
 ```
 
-``` c
-/* TIM3 init function */
-void MX_TIM3_Init(void)
-{...
-  htim3.Instance = TIM3;
-  htim3.Init.Prescaler = 0; // mise a zéro du prescalaire du timer (Calcul explique ci-apres)
-  htim3.Init.CounterMode = TIM_COUNTERMODE_UP; //comptage au front montant du compteur
-  htim3.Init.Period = 4000; //Valeure fixee a 4000, valeure necessaire pour respecter le 21MHz (Calcul explique ci-apres)
-  htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-  htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
-  ...
-  sConfigOC.OCMode = TIM_OCMODE_PWM1;
-  sConfigOC.Pulse = 0; //Passage a zero du signal pour déclenchement de la PWN (en slow decay)
-  sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
-  sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
-  //Envoie sur les channels 1 et 2 du timer 3 de la PWN (sorties du microcontroleur)
-  //Ces lignes de code permettent de satisfaire la table de verite de focntionnement en slow decay du pont en H
-  if (HAL_TIM_PWM_ConfigChannel(&htim3, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  if (HAL_TIM_PWM_ConfigChannel(&htim3, &sConfigOC, TIM_CHANNEL_2) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  HAL_TIM_MspPostInit(&htim3);
-}
-```
+
 La valeure de reload a été fixee a 4000 a cause d'une contrainte imposee. 
 En effet nous ne pouvions pas deppasser les 25kHz pour le pont de puissance.
 Ayant la formule suivante : *T(timer)=T(clock)(Prescalaire + 1)(reLoad+1)*
