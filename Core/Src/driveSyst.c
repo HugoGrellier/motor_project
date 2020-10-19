@@ -14,7 +14,7 @@ Xyz Accel;
 
 
 void DriveSyst_Init (driveSyst_t *dsHandle){
-	dsHandle->sp_source=e_BUTTON; //change the value to use another source 
+	dsHandle->sp_source=e_BUTTON; //change the value to use another source    
 	dsHandle->sp_physics=e_POSITION; //change the value to change mode
 }
 
